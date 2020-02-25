@@ -12,6 +12,8 @@ The goals / steps of this project were the following:
 [//]: # (Image References)
 
 [image1]: ./distribution_images/bar.png "distribution"
+[image2]: ./distribution_images/loss.png "distribution"
+[image3]: ./distribution_images/summary.png "distribution"
 [image4]: ./test_images/30mph.jpg "30mph"
 [image6]: ./test_images/general_caution2.png "General Caution 2"
 [image7]: ./test_images/keep_right.jpg "Keep Right"
@@ -28,7 +30,7 @@ The goals / steps of this project were the following:
 
 #### 1. Provide a Writeup / README that includes all the rubric points and how you addressed each one. You can submit your writeup as markdown or pdf. You can use this template as a guide for writing the report. The submission includes the project code.
 
-You're reading it! and here is a link to my [project code](./Traffic_Sign_Classifier.ipynb)
+You're reading it! and here is a link to my [project code](./Traffic_Sign_Classifier.py)
 
 ### Data Set Summary & Exploration
 
@@ -56,40 +58,34 @@ In the `normalise` function I normalized the pixel values to be decimals between
 
 #### 2. Describe what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
 
-My final model consisted of the following layers:
+For this projectm I made use of a Convoluted Neutral Network. My final model consisted of the 16 layers described below:
 
-| Layer         		|     Description	        					                | 
-|:---------------------:|:-------------------------------------------------------------:| 
-| Conv2D      	        | 3x3 stride, same padding, 32 outputs filters, 32*32*3 input 	|
-| MaxPool2D      	    | 2x2 stride and pool size				                        |
-| Dropout       	    | 0.25 rate                 									|
-| Conv2D      	        | 3x3 stride, same padding, 64 outputs filters 	                |
-| MaxPool2D      	    | 2x2 stride and pool size				                        |
-| Dropout       	    | 0.25 rate                 									|
-| Conv2D      	        | 3x3 stride, same padding, 128 outputs filters                 |
-| MaxPool2D      	    | 2x2 stride and pool size				                        |
-| Dropout       	    | 0.25 rate                 									|
-| Flatten       		| Make input one dimensional        		    				|
-| Dense 				| Fully connected dense layer           						|
-| Dropout       	    | 0.25 rate                 									|
-| Dense            		|  `nclasses` output filter with softmax activation				|
- 
-
+![summary of network structure][image3]
 
 #### 3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
 
-Using the architecture descibed above, I passed the entire training and validation set over 7 epochs. To avoid overfitting, I chose the number of epochs after considering the accuracy of the training and validation sets after each epochs.
+* Epochs: Using the architecture descibed above, I passed the entire training and validation set over 7 epochs. To avoid overfitting, I chose the number of epochs after considering the accuracy of the training and validation sets for each epochs. That is expressed with the graph described below:
+
+![ghraph of training and validation loss per epoch][image2]
+
+We see that there is no significant divergence between the loss per epoch of the validation and training sets.
+
+* Optimizer: [Adam Optimizer](https://www.tensorflow.org/api_docs/python/tf/compat/v1/train/AdamOptimizer) with a default learning rate of 0.001.
+
+* Loss Function: [sparse_categorical_crossentropy](https://www.tensorflow.org/api_docs/python/tf/keras/losses/sparse_categorical_crossentropy).
+
+* Batch Size: Default value of 32.
 
 My final model results were:
-* training set accuracy of 0.9621
-* validation set accuracy of 0.9612
-* test set accuracy of 0.9447
+* training set accuracy of 0.9556
+* validation set accuracy of 0.9637
+* test set accuracy of 0.9495
 
-I made use of a tensorflow example architecture I had previously used in classifying a [dog vs cat dataset](https://colab.research.google.com/github/tensorflow/examples/blob/master/courses/udacity_intro_to_tensorflow_for_deep_learning/l05c01_dogs_vs_cats_without_augmentation.ipynb#scrollTo=wqtiIPRbG4FA). However, I had to change the input shape in the first layer, change the number of classes in the softmax layer, and add dropout layers within the network to ensure the power of individual nodes are maximized. I chose this architecture because it has to do with classifying colored images and, with a 0.9313 accuracy on out validation set afer 5 Epochs, it clearly works well with our dataset.
+I made use of a tensorflow example architecture I had previously used in classifying a [dog vs cat dataset](https://colab.research.google.com/github/tensorflow/examples/blob/master/courses/udacity_intro_to_tensorflow_for_deep_learning/l05c01_dogs_vs_cats_without_augmentation.ipynb#scrollTo=wqtiIPRbG4FA). However, I had to change the input shape in the first layer, change the number of classes in the softmax layer, and add dropout layers within the network to ensure the power of individual nodes are maximized and aovid overfitting. I chose this architecture because it was a Convolution Neural Network tuned for classifying colored images and, with a 0.9451 accuracy on out validation set afer 5 Epochs, it clearly works well with our dataset.
  
 
 ### Test a Model on New Images
-I tried our images on images not included in our test data set. Here are some German traffic signs that I found on the web:
+I tried our model on images not included in the test data set. Here are some German traffic signs that I found on the web:
 
 ![alt text][image4] ![alt text][image6] 
 ![alt text][image7] ![alt text][image8]
@@ -100,27 +96,27 @@ Here are the results of the prediction:
 
 | Image			             |     Prediction	        					| 
 |:--------------------------:|:--------------------------------------------:| 
-| Speed limit (30km/h) 	     | Speed limit (70km/h)  						|
+| Speed limit (30km/h) 	     | Speed limit (30km/h)  						|
 | General caution            | General caution                              |
 | Keep right			     | Keep right          							|
 | Stop                       | Stop                                         |
 | Bumpy road    		     | Bumpy road									|
-| Speed limit (70km/h)	     | Speed limit (70km/h)			 				|
+| Speed limit (70km/h)	     | Speed limit (30km/h)			 				|
 | Dangerous curve to the left| Dangerous curve to the left                  |
 
-The model was able to correctly guess 6 of the 7 traffic signs, which gives an accuracy of 0.8571. This compares favorably with the accuracy on the test set which is 0.9447. For the first speed limit image, our model can detect that it is a speed limit sign, but it fails to correctly detect the speed written on it, which shows that the value of the speed limit detected by our model cannot be trusted.
+The model was able to correctly guess 6 of the 7 traffic signs, which gives an accuracy of 0.8571. This compares favorably with the accuracy on the test set which is 0.9495. For the second speed limit image, our model can detect that it is a speed limit sign, but it fails to correctly detect the speed written on it, which shows that the value of the speed limit detected by our model cannot be trusted.
 
-The code for making predictions on my final model is located in the 12th cell of the Ipython notebook.
+The code for making predictions on the final model is located in the last code cell of the [Ipython notebook](./Traffic_Sign_Classifier.ipynb).
 
-For the first image, the model is really sure that it is a Speed limit sign (probability of 0.99999940). While the image does contain a Speed limit sign, the model fails to read the value of the speed limit. The top five soft max probabilities were
+The top five softmax probabilities for our test images as predicted by the model are:
 
 | Probability         	|     Prediction	  					| 
 |:---------------------:|:-------------------------------------:| 
-| 9.9999940e-01       			| Speed limit (70km/h)   			    | 
-| 6.4220234e-07    				| Speed limit (20km/h)					|
-| 0.0000000e+00					| Speed limit (30km/h)					|
-| 0.0000000e+00	      			| Speed limit (50km/h)					|
-| 0.0000000e+00				    | Speed limit (60km/h)      		    |
+| 1.0000000e+00       			| Speed limit (30km/h)   			    | 
+| 1.7098796e-37    				| Speed limit (50km/h)					|
+| 0.0000000e+00					| Speed limit (20km/h)					|
+| 0.0000000e+00	      			| Speed limit (60km/h)					|
+| 0.0000000e+00				    | Speed limit (70km/h)      		    |
 
 For the second image (Correct)
 | Probability         	|     Prediction       					| 
@@ -131,14 +127,14 @@ For the second image (Correct)
 | 0.	      			| Speed limit (50km/h)					|
 | 0.				    | Speed limit (60km/h)      			|
 
-For the third image (Correct)
+For the third image (incorrect)
 | Probability         	|     Prediction	  					| 
 |:---------------------:|:-------------------------------------:| 
-| 1.       			    | Speed limit (70km/h)          		| 
-| 0.    				| Speed limit (20km/h)					|
-| 0.					| Speed limit (30km/h)					|
-| 0.	      			| Speed limit (50km/h)					|
-| 0.				    | Speed limit (60km/h)      			|
+| 1.000000e+00   	    | Speed limit (30km/h)          		| 
+| 7.807191e-09    		| Speed limit (20km/h)					|
+| 0.000000e+00  		| Speed limit (50km/h)					|
+| 0.000000e+00			| Speed limit (60km/h)					|
+| 0.000000e+00  	    | Speed limit (70km/h)      			|
 
 For the fourth image (Correct)
 | Probability         	|     Prediction	  					| 
