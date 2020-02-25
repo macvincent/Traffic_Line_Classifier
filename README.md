@@ -11,9 +11,7 @@ The goals / steps of this project were the following:
 
 [//]: # (Image References)
 
-[image1]: ./distribution_images/bar1.png "train"
-[image2]: ./distribution_images/bar2.png "test"
-[image3]: ./distribution_images/bar3.png "valid"
+[image1]: ./distribution_images/bar.png "distribution"
 [image4]: ./test_images/30mph.jpg "30mph"
 [image6]: ./test_images/general_caution2.png "General Caution 2"
 [image7]: ./test_images/keep_right.jpg "Keep Right"
@@ -41,21 +39,14 @@ signs data set:
 * The size of the validation set is 4410
 * The size of test set is 12630
 * The shape of a traffic sign image is (32, 32, 3)
-* The number of unique classes/labels in the data set is 42
+* The number of unique classes/labels in the data set is 43
 
 #### 2. Include an exploratory visualization of the dataset.
 
-Here is an exploratory visualization of the datasets. There are bar charts the number of examples of each class of the traffic sign contained in each dataset.
-
-#### Training Dataset
+Here is an exploratory visualization of the datasets. It shows the number of examples in each class for each dataset.
 
 ![alt text][image1]
 
-#### Validation Dataset
-![alt text][image3]
-
-#### Validation Dataset
-![alt text][image2]
 
 Here we see that certain classes have more test examples than the others in each data set.
 
