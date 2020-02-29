@@ -26,11 +26,7 @@ The goals / steps of this project were the following:
 ### Here I will consider the rubric points individually and describe how I addressed each point in my implementation.
 
 ---
-### Writeup / README
-
-#### 1. Provide a Writeup / README that includes all the rubric points and how you addressed each one. You can submit your writeup as markdown or pdf. You can use this template as a guide for writing the report. The submission includes the project code.
-
-You're reading it! and here is a link to my [project code](./Traffic_Sign_Classifier.py)
+Here is a link to my [project code](./Traffic_Sign_Classifier.ipynb) implemented using a CNN and a link to a more accurate network designed using [transfer learning](./Transfer_Learning.ipynb) from the [MobileNet V1](https://tfhub.dev/google/imagenet/mobilenet_v1_050_160/classification/4) network.    
 
 ### Data Set Summary & Exploration
 
@@ -43,8 +39,6 @@ signs data set:
 * The shape of a traffic sign image is (32, 32, 3)
 * The number of unique classes/labels in the data set is 43
 
-#### 2. Include an exploratory visualization of the dataset.
-
 Here is an exploratory visualization of the datasets. It shows the number of examples in each class for each dataset.
 
 ![alt text][image1]
@@ -52,17 +46,14 @@ Here is an exploratory visualization of the datasets. It shows the number of exa
 
 Here we see that certain classes have more test examples than the others in each data set.
 
-### Design and Test a Model Architecture
+### Design Model Architecture
 
 In the `normalise` function I normalized the pixel values to be decimals between 0 and 1, as this generally works better with networks.
-
-#### 2. Describe what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
 
 For this projectm I made use of a Convoluted Neutral Network. My final model consisted of the 16 layers described below:
 
 ![summary of network structure][image3]
 
-#### 3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
 
 * Epochs: Using the architecture descibed above, I passed the entire training and validation set over 7 epochs. To avoid overfitting, I chose the number of epochs after considering the accuracy of the training and validation sets for each epochs. That is expressed with the graph described below:
 
@@ -76,12 +67,17 @@ We see that there is no significant divergence between the loss per epoch of the
 
 * Batch Size: Default value of 32.
 
-My final model results were:
+My final model results for the CNN were:
 * training set accuracy of 0.9556
 * validation set accuracy of 0.9637
 * test set accuracy of 0.9495
 
-I made use of a tensorflow example architecture I had previously used in classifying a [dog vs cat dataset](https://colab.research.google.com/github/tensorflow/examples/blob/master/courses/udacity_intro_to_tensorflow_for_deep_learning/l05c01_dogs_vs_cats_without_augmentation.ipynb#scrollTo=wqtiIPRbG4FA). However, I had to change the input shape in the first layer, change the number of classes in the softmax layer, and add dropout layers within the network to ensure the power of individual nodes are maximized and aovid overfitting. I chose this architecture because it was a Convolution Neural Network tuned for classifying colored images and, with a 0.9451 accuracy on out validation set afer 5 Epochs, it clearly works well with our dataset.
+The final results for the transfer learing model which made use of were:
+* training set accuracy of 0.9907
+* validation set accuracy of 0.9936
+* test set accuracy of 0.9660
+
+For the CNN model, I made use of a tensorflow example architecture I had previously used in classifying a [dog vs cat dataset](https://colab.research.google.com/github/tensorflow/examples/blob/master/courses/udacity_intro_to_tensorflow_for_deep_learning/l05c01_dogs_vs_cats_without_augmentation.ipynb#scrollTo=wqtiIPRbG4FA). However, I had to change the input shape in the first layer, change the number of classes in the softmax layer, and add dropout layers within the network to ensure the power of individual nodes are maximized and aovid overfitting. I chose this architecture because it was a Convolution Neural Network tuned for classifying colored images and, with a 0.9451 accuracy on out validation set afer 5 Epochs, it clearly works well with our dataset.
  
 
 ### Test a Model on New Images
@@ -171,3 +167,5 @@ For the seventh image (Correct)
 | 0.					| Speed limit (30km/h)					|
 | 0.	      			| Speed limit (50km/h)					|
 | 0.				    | Speed limit (60km/h)      			|
+
+The transfer learning model was correct for all inputs.
