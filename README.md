@@ -72,7 +72,7 @@ My final model results for the CNN were:
 * validation set accuracy of 0.9637
 * test set accuracy of 0.9495
 
-The final results for the transfer learing model which made use of were:
+The final results for the transfer learing model were:
 * training set accuracy of 0.9907
 * validation set accuracy of 0.9936
 * test set accuracy of 0.9660
@@ -168,4 +168,4 @@ For the seventh image (Correct)
 | 0.	      			| Speed limit (50km/h)					|
 | 0.				    | Speed limit (60km/h)      			|
 
-The transfer learning model was correct for all inputs.
+The [transfer learning model](./Transfer_Learning.ipynb) was correct for all inputs.
